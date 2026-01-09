@@ -1,81 +1,30 @@
-# MCP Server for Versa API
+# Versa MCP Server
 
-A server that exposes a subset of queryable resources from the Versa API through the MCP specification.
+## Quick Start
 
-## License
+```bash
+uv run versa-mcp
+```
 
-Copyright © 2025 Versa Networks 
+Mock API responses are available in [src/versa_mcp/mocks/](src/versa_mcp/mocks/).
+Validation added in [src/versa_mcp/mocks/id_registry.py](src/versa_mcp/mocks/id_registry.py) for realistic 404 responses when invalid IDs are used.
 
-This software is proprietary. Users may use and modify this software for their own use, but redistribution in any form without explicit written permission is strictly prohibited.
+## Adding Skill to Claude Desktop
 
-For permissions beyond the scope of this license, please contact sridhariyer@versa-networks.com 
+1. Open Claude Desktop → **Settings** → **Skills**
+2. Click **Add Skill** and upload [skill-plugin/SKILL.md](skill-plugin/SKILL.md)
 
-## About
+![Step 1](resources/skill-upload-1.png) 
 
-This MCP server is specifically designed for querying the Versa API server. It exposes a subset of Versa API resources that can be queried through the MCP (Model Control Protocol) specification, which is still a work in progress.
+![Step 2](resources/skill-upload-2.png) 
 
-**Note**: The MCP specification is currently missing many security checks. Please use this within a secured environment with trusted tools only.
+![Step 3](resources/skill-upload-3.png)
 
-## Prerequisites
 
-This server uses [uv](https://docs.astral.sh/uv/guides/install-python/) for Python package management and installation.
+## Adding Versa Director MCP 
 
-## Setup
+MCP Server: https://secure-cyan-shrew.fastmcp.app/mcp
 
-### General Setup
+![alt text](resources/versa-mcp-remote-1.png)
 
-1. Clone the repository
-2. Run `uv sync` to synchronize dependencies
-
-### STDIO Mode Setup
-
-1. Install the project:
-   ```
-   uv run mcp install main.py
-   ```
-
-2. Modify `mcp.conf` with appropriate values for your environment
-
-3. Copy the configuration file to the appropriate location:
-   - For Claude Desktop: Place in the designated config directory
-   - For other applications: Deploy according to your application's requirements
-
-### SSE Mode Setup
-
-1. Modify `mcp.env` with appropriate values
-
-2. Source the environment file:
-   ```
-   source mcp.env
-   ```
-
-3. Run your choice of  SSE server:
-   For director integration:
-   ```
-   uv run main_sse.py
-   ```
-
-   For Concerto integration:
-   ```
-   uv run main_concerto_sse.py
-   ```
-   
-
-4. Configure your Claude Desktop by setting the following in `claude_desktop_config.json`:
-   ```json
-   {
-     "mcpServers": {
-       "Versa API Server": {
-         "command": "npx",
-         "args": ["mcp-remote", "http://127.0.0.1:8000/sse"]
-       }
-     }
-   }
-   ```
-
-   This uses [mcp-remote](https://www.npmjs.com/package/mcp-remote) to connect to the remote SSE server.
-
-## Security Warning
-
-This implementation of the MCP specification is missing many security checks. Please use this within a secured environment with trusted tools only.
-
+![alt text](resources/versa-mcp-remote-2.png) 
